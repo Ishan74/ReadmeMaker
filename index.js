@@ -1,6 +1,6 @@
 // TODO: Include packages needed for this application
-const inquirer = require('inquirer');
-const fs = require('fs');
+import inquirer from 'inquirer';
+import fs from 'fs';
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -26,19 +26,8 @@ const questions = [
     },
     {
       type: 'input',
-      name: 'contributing',
-      message: 'What are the contribution guidelines?',
-    },
-    {
-      type: 'input',
       name: 'tests',
       message: 'What are the test instructions?',
-    },
-    {
-      type: 'list',
-      name: 'license',
-      message: 'Choose a license for your project:',
-      choices: ['MIT', 'Apache 2.0', 'GPLv3', 'None'],
     },
     {
       type: 'input',
@@ -60,6 +49,39 @@ function writeToFile(fileName, data) {
     );
   }
 
+
+
+  function generateMarkdown(answers) {
+    return `
+  # ${answers.title}
+
+  
+  ## Description
+  ${answers.description}
+  
+  ## Table of Contents
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Tests](#tests)
+  - [Questions](#questions)
+  
+  ## Installation
+  ${answers.installation}
+  
+  ## Usage
+  ${answers.usage}
+  
+  
+  ## Tests
+  ${answers.tests}
+  
+  ## Questions
+  If you have any questions, please feel free to contact me:
+  
+  - GitHub: [${answers.github}](https://github.com/${answers.github})
+  - Email: [${answers.email}](mailto:${answers.email})
+    `;
+  }
 // Function call to initialize app
 function init() {
     inquirer.prompt(questions)
